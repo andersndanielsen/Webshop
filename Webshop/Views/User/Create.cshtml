@@ -1,0 +1,89 @@
+﻿@model Model.User
+
+@{
+    ViewBag.Title = "Opprett bruker";
+}
+
+<h2>Ny bruker</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Bruker</legend>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.firstName)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.firstName)
+                @Html.ValidationMessageFor(model => model.firstName)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.surName)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.surName)
+                @Html.ValidationMessageFor(model => model.surName)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.address)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.address)
+                @Html.ValidationMessageFor(model => model.address)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.postcode)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.postcode)
+                @Html.ValidationMessageFor(model => model.postcode)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.postcodeArea)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.postcodeArea)
+                @Html.ValidationMessageFor(model => model.postcodeArea)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.telephoneNumber)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.telephoneNumber)
+                @Html.ValidationMessageFor(model => model.telephoneNumber)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.userName)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.userName)
+                @Html.ValidationMessageFor(model => model.userName)
+                <label id="lblUserNameError">@ViewBag.userNameError</label>
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.password)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.password)
+                @Html.ValidationMessageFor(model => model.password)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.secondPassword)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.secondPassword)
+                @Html.ValidationMessageFor(model => model.secondPassword)
+            </div>
+            <input class="btnSubmit" type="submit" value="Opprett" />
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Til forsiden", "Index", "Item")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

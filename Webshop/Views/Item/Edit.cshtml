@@ -1,0 +1,98 @@
+﻿@model Model.Item
+
+@{
+    ViewBag.Title = "Endre Produkt";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@using BLL
+@using Model
+
+<h2>Endre Produkt</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Produkt</legend>
+
+        @Html.HiddenFor(model => model.itemId)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.name)
+            @Html.ValidationMessageFor(model => model.name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.description)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.description)
+            @Html.ValidationMessageFor(model => model.description)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.subCategory)
+        </div>
+        <div class="editor-field">
+            @{
+                ItemLogic itemBll = new ItemLogic("");
+                List<SubCategory> subCatList = itemBll.GetAllSubCategories();
+                List<SelectListItem> items = new List<SelectListItem>();
+                foreach (var subCategory in subCatList)
+                {
+                    if(Model.subCategory == subCategory.name){
+                        items.Add(new SelectListItem {
+                            Text = subCategory.name,
+                            Value = subCategory.name,
+                            Selected = true
+                        });
+                    }
+                    else{
+                        items.Add(new SelectListItem {
+                            Text = subCategory.name,
+                            Value = subCategory.name
+                        });
+                    }
+                    
+                }
+                @Html.DropDownListFor(model => model.subCategory, items)
+                
+            }
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.price)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.price)
+            @Html.ValidationMessageFor(model => model.price)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.rabatt)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.rabatt)
+            @Html.ValidationMessageFor(model => model.rabatt)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.amount)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.amount)
+            @Html.ValidationMessageFor(model => model.amount)
+        </div>
+        <input class="btnSubmit" type="submit" value="Lagre" />
+    </fieldset>
+}
+
+@Html.ActionLink("Tilbake", "AdminItems")
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

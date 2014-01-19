@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Model.User>
+
+@{
+    ViewBag.Title = "Administrer Brukere";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h2>Administrer Brukere</h2>
+
+<table class="adminTable">
+    <tr class="">
+        <th>
+            E-post
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isAdmin)
+        </th>
+        <th>
+            Navn
+        </th>
+        <th>
+            Tlf
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.address)
+        </th>
+        <th>
+            Postnr
+        </th>
+        <th>
+            Sted
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.userName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isAdmin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.firstName) @Html.DisplayFor(modelItem => item.surName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.telephoneNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.postcode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.postcodeArea)
+        </td>
+        <td>
+            @Html.ActionLink("Endre", "AdminEdit", new { id=item.id }) |
+            @Html.ActionLink("Deaktiver", "DeactivateUser", new { id=item.id }) |
+            @Html.ActionLink("Historikk", "History", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

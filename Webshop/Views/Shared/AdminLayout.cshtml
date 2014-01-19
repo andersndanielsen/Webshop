@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @using Model
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div id="pagewrapper">
+        <header>
+            <div id="headerBanner">
+                @{
+                    User user = (User)HttpContext.Current.Session["UserLoggedIn"];
+                    <label id="welcomeMessage">Velkommen inn, @user.firstName! </label>
+                    if (user.isAdmin) { 
+                        @Html.ActionLink("Kontrollpanel |", "ControlPanel", "User", null, new { @id = "controlPanelLink", @class = "headerLink" })
+                    }
+                    @Html.ActionLink("Min side |", "MyPage", "User", new { id = @user.id }, new { @id = "myPageLink", @class = "headerLink" })
+                    @Html.ActionLink("Logg ut", "LogIn", "User", null, new { @id = "logOutLink", @class = "headerLink" })
+                }
+            </div>
+            <a href="@Url.Action("Index", "Item")">
+                <img src="~/Content/Images/a&m_logo2.jpg" alt="logo" id="logo" /></a>
+        </header>
+
+        <nav role="navigation" id="leftMenu">
+            <span class="menuCategories">Produkter</span>
+                @Html.ActionLink("Opprett", "Create", "Item", null, new { @class = "menuSubcategories" })
+                @Html.ActionLink("Alle", "AdminItems","Item", null, new { @class = "menuSubcategories" })
+                @Html.ActionLink("Slettede", "DeletedItems", "Item", null, new { @class = "menuSubcategories" })
+           <span class="menuCategories">Brukere</span>
+                @Html.ActionLink("Registrerte", "AdminUsers", "User", null, new { @class = "menuSubcategories" })
+                @Html.ActionLink("Uregistrerte", "AdminPersons", "User", null, new { @class = "menuSubcategories" })
+            <span class="menuCategories">Ordre</span>
+                @Html.ActionLink("Alle", "AdminOrders", "Order", null, new { @class = "menuSubcategories" })
+                @Html.ActionLink("Ubehandlede", "UnhandledOrders", "Order", null, new { @class = "menuSubcategories" })
+        </nav>
+
+        <div id="pageContainer">
+            @RenderBody()
+        </div>
+
+        <footer>
+            <br />
+            <br />
+        </footer>
+
+        @Scripts.Render("~/bundles/jquery")
+        @RenderSection("scripts", required: false)
+    </div>
+</body>
+</html>

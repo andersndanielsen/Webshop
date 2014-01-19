@@ -1,0 +1,74 @@
+﻿@model Model.User
+
+@{
+    ViewBag.Title = "Min side";
+}
+
+<h2>Min side</h2>
+
+<fieldset id="myPageFieldsetLeft">
+    <legend>Bruker</legend>
+        <div class="divLeftFieldset">
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.firstName)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.firstName)
+            </div>
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.userName)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.userName)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.address)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.address)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.postcodeArea)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.postcodeArea)
+            </div>
+        </div>
+        <div class="divRightFieldset">
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.surName)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.surName)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.telephoneNumber)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.telephoneNumber)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.postcode)
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.postcode)
+            </div>
+        </div>
+</fieldset>
+
+<fieldset id="myPageFieldsetRigth">
+    <legend>Bestillinger</legend>
+        <ul id="orderList">
+            @foreach(var o in Model.orders){
+                <li>
+                    <a href="@Url.Action("Details", "Order", new { id = o.orderId })" id="class">
+                        @o.date
+                    </a>
+                </li>
+            }
+        </ul>
+</fieldset>
+<p id="myPageLinks">
+    @Html.ActionLink("Endre", "Edit", new { id=Model.id }) | 
+    @Html.ActionLink("Til forsiden", "Index", "Item")
+</p>

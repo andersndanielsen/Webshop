@@ -1,0 +1,62 @@
+﻿@model Model.Order
+
+@{
+    ViewBag.Title = "Bekreft";
+}
+
+<h2>Bekreft din ordre</h2>
+@using (Html.BeginForm("Payment", "Order")) {
+    <table class="cartTable">
+        <thead>
+            <tr>
+                <th class="tableHeader" colspan="6">@Html.DisplayFor(model => model.date)</th>
+            </tr>
+            <tr class="tableHeaderRow">
+                <th colspan="2"></th>
+                <th>Antall</th>
+                <th>Pris</th>
+                <th>Totalt</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int totalSum = 0;
+                foreach (var orderItem in Model.orderItems) {
+                    int price = (orderItem.item.price - orderItem.item.rabatt);
+                    int amount = orderItem.amount;
+                    int itemPrice = price*amount;
+                    <tr>
+                        <td>
+                            <img src="data:image;base64,@System.Convert.ToBase64String(orderItem.item.image)" height="75"/>
+                        </td>
+                        <td>
+                            @orderItem.item.name
+                        </td>
+                        <td>
+                            @amount
+                        </td>
+                        <td>
+                            @price kr
+                        </td>
+                        <td>
+                            @itemPrice kr
+                        </td>
+                    </tr>
+                    totalSum += itemPrice;
+                }
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3"></td>
+                <td>Totalt:</td>
+                <td id="cartTotalPrice">@totalSum kr</td>
+            </tr>
+        </tfoot>
+    </table>
+    <input type="submit" value="Betal" />
+}
+<p>
+    @Html.ActionLink("Tilbake", "ViewCart", "Order") |
+    @Html.ActionLink("Til forsiden", "Index", "Item")
+</p>

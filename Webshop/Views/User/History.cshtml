@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Model.UserHistory>
+
+@{
+    ViewBag.Title = "Brukerhistorie";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@using BLL
+@using Model
+
+<h2>Brukerhistorikk for @Html.DisplayFor(modelItem => modelItem.First().firstName) @Html.DisplayFor(modelItem => modelItem.First().surName)</h2>
+
+<table class="adminTable">
+    <tr class="tableHeaderRow">
+        <th>
+            @Html.DisplayNameFor(model => model.comment)
+        </th>
+        <th>
+            Utført av
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.changeDateTime)
+        </th>      
+        <th>
+            E-post
+        </th>
+        <th>
+            Tlf
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.address)
+        </th>
+        <th>
+            PostNr
+        </th>
+        <th>
+            Sted
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isAdmin)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.comment)
+        </td>
+        <td>
+            @{
+                PersonLogic personBll = new PersonLogic("");
+                User user = (User)personBll.GetPerson(item.changedByPersonId);
+            }
+            @user.userName
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.changeDateTime)
+        </td>
+        <td>
+            @{
+                User u = (User)personBll.GetPerson(item.id);
+            }
+            @u.userName
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.telephoneNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.postcode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.postcodeArea)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isAdmin)
+        </td>
+    </tr>
+}
+
+</table>

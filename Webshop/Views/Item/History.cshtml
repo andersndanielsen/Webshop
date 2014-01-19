@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Model.ItemHistory>
+
+@{
+    ViewBag.Title = "Produkthistorie";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@using BLL
+@using Model
+
+<h2>Produkthistorie for vare @Html.DisplayFor(modelItem => modelItem.First().name)</h2>
+
+<table class="adminTable">
+    <tr class="tableHeaderRow">
+        <th>
+            @Html.DisplayNameFor(model => model.comment)
+        </th>
+        <th>
+            Utført av
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.changeDateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.subCategory)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.rabatt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.amount)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.comment)
+        </td>
+        <td>
+            @{
+                PersonLogic personBll = new PersonLogic("");
+                User user = (User)personBll.GetPerson(item.changedByPersonId);
+            }
+            @user.userName
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.changeDateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.subCategory)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.price) kr
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.rabatt) kr
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.amount)
+        </td>
+    </tr>
+}
+
+</table>

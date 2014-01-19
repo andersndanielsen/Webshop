@@ -1,0 +1,52 @@
+﻿@model Model.Item
+
+@{
+    ViewBag.Title = "Slett Produkt";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h2>Slett Produkt</h2>
+
+<h3>Er du sikker på at du ønsker å slette dette produktet?</h3>
+<fieldset>
+    <legend>
+        @Html.DisplayFor(model => model.name)
+    </legend>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.description)
+    </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.subCategory)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.subCategory)
+    </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.price)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.price)
+    </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.rabatt)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.rabatt)
+    </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.amount)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.amount)
+    </div>
+</fieldset>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <input class="btnSubmit" type="submit" value="Slett" />
+}
+<br />
+@Html.ActionLink("Tilbake", "AdminItems")

@@ -1,0 +1,36 @@
+﻿@model Int32    
+
+@{
+    ViewBag.Title = "En feil har oppstått";
+    Layout = "~/Views/Shared/ErrorLayout.cshtml";
+}
+        <p style=" color: Red;">
+        @switch (Model) {
+            case 403: {
+                    <span>Du har ikke tilgang til denne siden!</span>
+                    break;
+                }
+            case 404: {
+                    <span>Siden ble ikke funnet. Linken du har brukt kan være gammel, og ikke lenger i bruk, eller så kan linken være feil.</span>
+                break;
+                }
+            case 500: {
+                <span>En feil har oppstått. Vennligst prøv igjen.</span>
+            break;
+            }
+            case 1000: {
+                <span>Bruker som du prøver å endre finnes ikke.</span>
+            break;
+            }
+            case 1001: {
+                <span>Bruker som du prøver å deaktivere finnes ikke.</span>
+            break;
+            }
+                
+            //and more cases for more error-codes...
+            default: {
+                    <span>En ukjent feil har oppstått! Vennligst prøv igjen om litt..</span>
+                    break; 
+                }
+        }
+        </p>

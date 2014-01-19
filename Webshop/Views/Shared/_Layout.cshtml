@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @using Model
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script type="text/jscript">    // This method calls ToCart() in ItemController to handle the cart-link right
+        var url = "@Url.Action("ToCart", "Order")";
+        $.get(url, null, function (data) {
+            $("#cartLink").html(data);
+        });
+    </script>
+    <script type="text/jscript">
+        function validateCart(id, nr, stock) {
+            if (!($.isNumeric($("#nrOfItems"+id).val()))) {
+                $("#nrOfItems"+id).val("1").css("border-color", "red");
+                setTimeout(function () { $("#nrOfItems"+id).css("border-color", ""); }, 500);
+            }
+            if (parseInt($("#nrOfItems" + id).val()) <= 0) {
+                $("#nrOfItems" + id).val(1);
+            }
+            if (parseInt($("#nrOfItems" + id).val()) > stock) {
+                $("#nrOfItems" + id).val(stock);
+            }
+
+            $("#itemTotalPrice" + id).html($("#itemPrice" + id).text() * $("#nrOfItems" + id).val());
+            
+            var total = 0;
+            for (var i = 0; i < nr; i++) {
+                total = total + parseInt($("#itemTotalPrice" + i).text());
+            }
+            $("#cartTotalPrice").text(total);
+        };
+    </script>
+</head>
+<body>
+    <div id="pagewrapper">
+        <header>
+            <div id="headerBanner">
+                @if (Session["UserLoggedIn"] == null) { 
+                    @Html.ActionLink("Logg inn", "LogIn", "User", null, new { @id = "logInLink", @class = "headerLink" })
+
+                    @Html.ActionLink("Ny kunde |", "Create", "User", null, new { @id = "newCustomerLink", @class = "headerLink" })
+                }
+                else {
+                    User user = (User)HttpContext.Current.Session["UserLoggedIn"];
+                    <label id="welcomeMessage">Velkommen inn, @user.firstName! </label>
+                    if (user.isAdmin) { 
+                        @Html.ActionLink("Kontrollpanel |", "ControlPanel", "User", null, new { @id = "controlPanelLink", @class = "headerLink" })
+                    }
+                    @Html.ActionLink("Min side |", "MyPage", "User", new { id = @user.id }, new { @id = "myPageLink", @class = "headerLink" })
+                    @Html.ActionLink("Logg ut", "LogIn", "User", null, new { @id = "logOutLink", @class = "headerLink" })
+                }
+            </div>
+            @Html.ActionLink("Handlevogn", "ViewCart", "Order", null, new { @id = "cartLink", @class = "headerLink" })
+            <a href="@Url.Action("Index", "Item")">
+                <img src="~/Content/Images/a&m_logo2.jpg" alt="logo" id="logo" /></a>
+        </header>
+
+        <nav role="navigation" id="leftMenu">
+            <span class="menuCategories">Idrett</span>
+                @Html.ActionLink("Friidrett", "Products", "Item", new { id = 6 }, new { @class = "menuSubcategories" })
+                @Html.ActionLink("Fotball", "Products", "Item", new { id = 7 }, new { @class = "menuSubcategories" })
+            <span class="menuCategories">Klær</span>
+                @Html.ActionLink("Bukser", "Products", "Item", new { id = 8 }, new { @class = "menuSubcategories" })
+                @Html.ActionLink("Gensere", "Products", "Item", new { id = 9 }, new { @class = "menuSubcategories" })
+            <span class="menuCategories">Mat</span>
+                @Html.ActionLink("Kaker", "Products", "Item", new { id = 2 }, new { @class = "menuSubcategories" })
+            <span class="menuCategories">Møbler</span>
+                @Html.ActionLink("Bord", "Products","Item", new { id = 1 }, new { @class = "menuSubcategories" })
+                @Html.ActionLink("Stoler", "Products","Item", new { id = 4 }, new { @class = "menuSubcategories" })
+                @Html.ActionLink("Sofa", "Products", "Item",new { id = 5 }, new { @class = "menuSubcategories" })
+
+           
+        </nav>
+            
+        <div id="pageContainer">
+            @RenderBody()
+        </div>
+
+        <footer>
+            <br />
+            <br />
+        </footer>
+
+        @Scripts.Render("~/bundles/jquery")
+        @RenderSection("scripts", required: false)
+    </div>
+</body>
+</html>

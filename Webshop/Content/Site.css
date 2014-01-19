@@ -1,0 +1,437 @@
+﻿html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    margin-top: 30px;
+    font-size: 0.85em;
+    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+    color: #232323;
+    background-color: #808080;
+}
+
+header, footer, section {
+    display: block;
+    background-color: #ddd;
+}
+
+header {
+    border-radius: 8px 8px 0px 0px;
+    position: relative;
+}
+
+#headerBanner {
+    background-color: #c61c27;
+    border-radius: 8px 8px 0px 0px;
+    height: 20px;
+    padding: 10px;
+}
+
+#logo {
+    padding-left: 50px;
+}
+
+#pagewrapper {
+    width: 1000px;
+    min-height: 100%;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0px;
+    background-color: #ffffff;
+    box-shadow: 0 0 25px #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#pageContainer {
+    display: inline;
+    min-height: 100%;
+    padding: 10px;
+    float: left;
+    width: 80%;
+    padding-bottom: 80px; /* Height of the footer */
+}
+
+nav {
+    padding-top: 10px;
+    display: inline;
+    float: left;
+    width: 15%;
+}
+
+#leftMenu a {
+    display: block;
+    text-decoration: none;
+    color: #000000;
+}
+
+.menuCategories {
+    padding-left: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.menuSubcategories {
+    padding: 5px 0 5px 20px;
+    font-size: 16px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px; /* Height of the footer */
+    border-radius: 0px 0px 8px 8px;
+}
+
+form {
+    display: block;
+}
+
+#lblLogInError {
+    color: red;
+}
+
+#lblUserNameError {
+    color: red;
+}
+
+#lblItemNameError {
+    color: red;
+}
+
+.btnSubmit {
+    margin-top: 1em;
+}
+
+#welcomeMessage {
+    font-size: 16px;
+    font-style: italic;
+}
+
+/* Styles for Cart
+---------------------------------------------------------------*/
+.cartTable {
+    width:100%;
+    border:2px solid #ddd;
+    border-collapse:collapse;
+    text-align:left;
+}
+
+    .cartTable td {
+        padding:10px 10px;
+        position:relative;
+    }
+
+    .cartTable tr {
+        border-bottom:2px dashed #ddd;
+    }
+
+    .cartTable .tableHeader {
+        background-color:#ddd;
+        font-size:18px;
+        font-weight:bold;
+        padding:10px 10px;
+    }
+
+    .cartTable .tableHeaderRow {
+        border-bottom:2px solid #ddd;
+    }
+
+    .cartTable tfoot {
+        border-top:2px solid #ddd;
+    }
+
+.cartAmount {
+    
+}
+
+/*
+    Styles for Adminpages
+---------------------------------------------------------------*/
+
+.adminTable {
+    width:100%;
+    border:2px solid #ddd;
+    border-collapse:collapse;
+    text-align:left;
+}
+    .adminTable th {
+        padding: 7px 7px;
+    }
+
+.adminTable td {
+        padding:7px 7px;
+        position:relative;
+    }
+
+    .adminTable tr {
+        border-bottom:2px dashed #ddd;
+    }
+
+    .adminTable .tableHeaderRow {
+        border-bottom:2px solid #ddd;
+    }
+
+/* Styles for links
+---------------------------------------------------------------*/
+#orderList {
+    list-style-type: none;
+    padding-left:0px;
+}
+
+#myPageLinks {
+    position:absolute;
+    left:170px;
+    top:475px;
+}
+
+#cartLink {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-weight: bold;
+}
+
+.headerLink {
+    text-decoration: none;
+    color: #000000;
+}
+
+#logInLink {
+    position: absolute;
+    right: 10px;
+}
+
+#logOutLink {
+    position: absolute;
+    right: 10px;
+}
+
+#newCustomerLink {
+    position: absolute;
+    right: 72px;
+}
+
+#myPageLink {
+    position: absolute;
+    right: 68px;
+}
+
+#controlPanelLink {
+    position: absolute;
+    right: 140px;
+}
+/* Styles for homepage where we're showing what's for sale.
+---------------------------------------------------------------*/
+.saleHomepageRow {
+    display: table-row;
+}
+
+    .saleHomepageRow a {
+        text-decoration: none;
+        color: #000000;
+        height: 273px;
+    }
+
+.saleHomepageCell {
+    display: table-cell;
+    border: dashed 1px #000000;
+    position: relative;
+    width: 178px;
+    float: left;
+    padding: 0px 10px 0px 10px;
+}
+
+    .saleHomepageCell .image {
+        height: 75px;
+        text-align: center;
+    }
+
+    .saleHomepageCell .description {
+        margin-bottom: 70px;
+    }
+
+    .saleHomepageCell .priceContainer {
+        position: absolute;
+        left: 10px;
+        bottom: 10px;
+        width: 130px;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+        .saleHomepageCell .priceContainer .priceEarlierContainer{
+            display: block;
+        }
+
+        .saleHomepageCell .priceContainer .priceEarlierText{
+            color: grey;
+            font-size: 12px;
+        }
+        .saleHomepageCell .priceContainer .priceEarlier{
+            font-size: 12px;
+        }
+
+        .saleHomepageCell .priceContainer .priceNowText {
+            color: grey;
+            font-size: 14px;
+        }
+
+        .saleHomepageCell .priceContainer .price {
+        }
+
+    .saleHomepageCell .button-buy {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+    }
+
+/* Styles for page ProductDetails.
+---------------------------------------------------------------*/
+.productInfo {
+    position: relative;
+    /*overflow: hidden;*/
+}
+
+    .productInfo .image {
+        width: 500px;
+        float: left;
+    }
+
+.productInfoRight {
+    float: left;
+    position: relative;
+    width: 300px;
+}
+
+    .productInfoRight .description {
+        position: absolute;
+        left: 2px;
+        top: 90px;
+    }
+
+    .productInfoRight .priceContainer {
+        font-size: 20px;
+        font-weight: bold;
+        float: left;
+        margin-right: 20px;
+    }
+
+    .productInfoRight .productAvailable {
+        position: absolute;
+        top: 65px;
+        left: 3px;
+    }
+
+    .productInfoRight .priceContainer .priceEarlierContainer {
+        font-size: 16px;
+        display: block;
+    }
+
+    .productInfoRight .priceContainer .priceEarlierText {
+        color: grey;
+    }
+
+    .productInfoRight .priceContainer .priceEarlier {
+    }
+
+    .productInfoRight .priceContainer .priceNowContainer {
+        display: block;
+    }
+
+    .productInfoRight .priceContainer .priceNowText {
+        color: grey;
+        font-size: 18px;
+    }
+
+    .productInfoRight .priceContainer .priceNow {
+    }
+
+    .productInfoRight .button-buy {
+        position: absolute;
+        top: 0px;
+        right: 10px;
+        font-size: 16px;
+        width: 100px;
+        height: 40px;
+    }
+
+/* Styles for basic forms
+-----------------------------------------------------------*/
+fieldset {
+    border: 1px solid #ddd;
+    padding: 0 1.4em 1.4em 1.4em;
+    margin: 0 0 1.5em 0;
+    display: inline-block;
+}
+
+#myPageFieldsetLeft {
+    float:left;
+}
+
+#myPageFieldsetRigth {
+    float:left;
+    margin-left:20px;
+}
+
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+textarea {
+    min-height: 75px;
+}
+
+.editor-label {
+    font-weight: bold;
+    margin-top: 1em;
+}
+
+.editor-field {
+}
+
+.display-label {
+    font-weight: bold;
+    margin-top: 1em;
+}
+
+.divLeftFieldset {
+    width: auto;
+    float: left;
+}
+
+.divRightFieldset {
+    width: auto;
+    float: left;
+    margin-left: 2em;
+}
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error {
+    color: #f00;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #f00;
+    background-color: #fee;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #f00;
+}
+
+.validation-summary-valid {
+    display: none;
+}

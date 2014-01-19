@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Model.Order>
+
+@{
+    ViewBag.Title = "Administrer Ubehandlede Ordere";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h2>Administrer Ubehandlede Ordre</h2>
+
+<table class="adminTable">
+    <tr class="tableHeaderRow">
+        <th>
+            Ordrenummer
+        </th>
+        <th>
+            Tidspunkt
+        </th>
+        <th>
+            Behandlet
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.orderId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.orderSent)
+        </td>
+        <td>
+            @Html.ActionLink("Behandle", "Handle", new { id=item.orderId }) |
+            @Html.ActionLink("Detaljer", "AdminDetails", new { id=item.orderId })
+        </td>
+    </tr>
+}
+
+</table>

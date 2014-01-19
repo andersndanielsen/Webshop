@@ -1,0 +1,89 @@
+﻿@model Model.Order
+@{
+    int idNr;
+    using (Html.BeginForm()) {
+    
+        <table class="cartTable">
+            <thead>
+                <tr>
+                    <th class="tableHeader" colspan="8">Din handlevogn</th>
+                </tr>
+                <tr class="tableHeaderRow">
+                    <th colspan="3"></th>
+                    <th>Antall</th>
+                    <th>Pris</th>
+                    <th></th>
+                    <th>Totalt</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int totalSum = 0;
+                    idNr = 0;
+                    foreach (var orderItem in Model.orderItems) {
+
+                        int price = (orderItem.item.price - orderItem.item.rabatt);
+                        <tr>
+                            <td>
+                                <a href="@Url.Action("ProductDetails", "Item", new { id = orderItem.item.itemId })">
+                                    <img src="data:image;base64,@System.Convert.ToBase64String(orderItem.item.image)" height="75"/>
+                                </a>
+                            </td>
+                            <td>
+                                <h3>@orderItem.item.name</h3>
+                                <div class="cartAmount">
+                                    @{
+                                        if (orderItem.item.amount == 0) {
+                                            <img src="~/Content/Images/notAvailable.gif" />
+                                        }
+                                        else {
+                                            <img src="~/Content/Images/available.gif" />
+                                        }   
+                                    }
+                                    <span class="productAvailabelText">Antall på lager: @orderItem.item.amount stk</span>
+                                </div>
+                            </td>
+                            <td>@Html.ActionLink("Slett vare", "DeleteFromCart", new { id = orderItem.item.itemId })</td>
+                            <td>
+                                <!-- Value in input-field is 1 except from when item is out of stock-->
+                                <input type="number" value="@if(orderItem.item.amount==0){<text>0</text>}else{<text>1</text>}" id="nrOfItems@(idNr)" name="formAmount@(idNr)" 
+                                    onchange="validateCart(@idNr,@Model.orderItems.Count, @orderItem.item.amount)"/>
+                            </td>
+                            @if(orderItem.item.amount != 0){
+                                <td id="itemPrice@(idNr)">@price</td>
+                                <td>kr</td>
+                                <td id="itemTotalPrice@(idNr)">@price</td>
+                                <td>kr</td>
+                                totalSum += price;
+                            }
+                            else{
+                                <td id="itemPrice@(idNr)">0</td>
+                                <td>kr</td>
+                                <td id="itemTotalPrice@(idNr)">0</td>
+                                <td>kr</td>
+                            }
+                                
+                        </tr>
+                        
+                        idNr++;
+                    }
+                }
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5"></td>
+                    <td>Totalt:</td>
+                    <td id="cartTotalPrice">@totalSum</td>
+                    <td>kr</td>
+                </tr>
+            </tfoot>
+        </table>
+        <input type="submit" value="Gå til kassen" id="formCheckout" name="formCheckout" />
+    }
+    using (Html.BeginForm("Index", "Item")) {
+        <input type="submit" value="Fortsett å handle" id="formKeepShopping" />
+    }
+}
+ @ViewBag.error

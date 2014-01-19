@@ -1,0 +1,58 @@
+﻿@model Model.Item
+
+@{
+    ViewBag.Title = "ProductDetails";
+}
+
+<h1>@Model.name</h1>
+
+<div class="productInfo">
+    <div class="image">
+        <img src="data:image;base64,@System.Convert.ToBase64String(Model.image)" width="500"/>
+    </div>
+    <div class="productInfoRight">
+        <div class="priceContainer">
+            @if(Model.rabatt > 0){  <!-- Different between Item on sale and not on sale-->
+            <div class="priceEarlierContainer">
+                <span class="priceEarlierText">Førpris</span>
+                <span class="priceEarlier">@Html.DisplayFor(modelItem => Model.price) kr</span>
+            </div>
+            <div class="priceNowContainer">
+                <span class="priceNowText">Nå</span>
+            
+                @{int nowPrice = Model.price - Model.rabatt;}
+                <span class="priceNow">@nowPrice kr!</span>
+            </div>
+            }
+            else{
+                <div class="priceNowContainer">
+                <span class="priceNowText">Kun</span>
+            
+                @{int nowPrice = Model.price - Model.rabatt;}
+                <span class="priceNow">@nowPrice kr!</span>
+            </div>
+            }
+        </div>
+
+        <div class="productAvailable">
+            @{
+                if (@Model.amount == 0) {
+                <img src="~/Content/Images/notAvailable.gif" />
+                }
+                else {
+                <img src="~/Content/Images/available.gif" />
+                }
+            }
+            <span class="productAvailabelText">Antall på lager: @Model.amount stk</span>
+        </div>
+
+        @using (Ajax.BeginForm("ToCart", "Order", new { id = Model.itemId }, new AjaxOptions { UpdateTargetId = "cartLink" })) {
+            <input type="submit" value="Kjøp" class="button-buy" />
+        }
+
+        <div class="description">
+            <p>@Model.description</p>
+        </div>
+
+    </div>
+</div>

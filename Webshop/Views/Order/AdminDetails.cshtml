@@ -1,0 +1,92 @@
+﻿@model Model.Order
+
+@{
+    ViewBag.Title = "Ordredetaljer";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@using Model
+@using BLL
+
+<h2>Ordredetaljer</h2>
+
+@{
+    PersonLogic personBll = new PersonLogic("");
+    Person person = personBll.GetPerson(Model.personId);
+}
+
+<fieldset>
+    <legend>Kunde</legend>
+        <div class="divLeftFieldset">
+            <div class="display-label">
+                @Html.DisplayNameFor(model => person.firstName)
+            </div>
+            <div class="display-field">
+                @person.firstName
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => person.address)
+            </div>
+            <div class="display-field">
+                @person.address
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => person.postcode)
+            </div>
+            <div class="display-field">
+                @person.postcode
+            </div>
+        </div>
+        <div class="divRightFieldset">
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => person.surName)
+            </div>
+            <div class="display-field">
+                @person.surName
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => person.telephoneNumber)
+            </div>
+            <div class="display-field">
+                @person.telephoneNumber
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => person.postcodeArea)
+            </div>
+            <div class="display-field">
+                @person.postcodeArea
+            </div>
+        </div>
+</fieldset>
+<br />
+<br />
+<table class="cartTable">
+    <thead>
+        <tr>
+            <th class="tableHeader" colspan="3">Ordretidspunkt: @Html.DisplayFor(model => model.date)</th>
+        </tr>
+        <tr class="tableHeaderRow">
+            <th>Varenr</th>
+            <th>Varenavn</th>
+            <th>Antall</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var orderItem in Model.orderItems) {
+                <tr>
+                    <td>
+                        @orderItem.item.itemId
+                    </td>
+                    <td>
+                        @orderItem.item.name
+                    </td>
+                    <td>
+                        @orderItem.item.amount
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+

@@ -1,0 +1,75 @@
+﻿@model List<Model.Item>
+
+@{
+    ViewBag.Title = "Products";
+}
+
+@{  //We will dynamically fill the homepage with Items on sale. We want 4 items on each line.
+    int listIndex = 0;
+    int size = Model.Count();
+    int div = size / 4;
+    int mod = size % 4;
+    int numberOfLines;
+    if (size == 0) {
+        numberOfLines = 0;
+    }
+    else if (div == 0 && mod > 0) {   // if size=1, 2 eller 3 we want 1 line.
+        numberOfLines = 1;
+    }
+    else if (div > 0 && mod == 0) {   // e.g if size=8 then div=2 and mod=0.
+        numberOfLines = div;
+        mod = 4;    //If size=4 then mod=0, but we want 4 items on one row.
+    }
+    else {    // e.g if size=7 then div=1 and mod=3. We still want to have 2 lines.
+        numberOfLines = div + 1;
+    }
+
+    while (numberOfLines-- > 0) {
+        int nr = (numberOfLines > 0) ? 4 : mod;
+    <div class="saleHomepageRow">
+        <!-- This div is one row on the Products-page-->
+
+        @for (int i = 0; i < nr; i++) {
+            <a href="@Url.Action("ProductDetails", new { id = Model[listIndex].itemId })" class="saleHomepageCell">
+                <!-- This 'column' is one cell on the Products-page-->
+
+                <h4>@Html.DisplayFor(modelItem => Model[listIndex].name)</h4>
+
+                <div class="image">
+                    <img src="data:image;base64,@System.Convert.ToBase64String(Model[listIndex].image)" height="75"/>
+                </div>
+
+                <div class="description">
+                    <p>@Html.DisplayFor(modelItem => Model[listIndex].description)</p>
+                </div>
+
+                @using (Ajax.BeginForm("ToCart", "Order", new { id = Model[listIndex].itemId }, new AjaxOptions { UpdateTargetId = "cartLink" })) {
+                    <input type="submit" value="Kjøp" class="button-buy" />
+                }
+                
+                <div class="priceContainer">
+                    @if(Model[listIndex].rabatt > 0){ <!-- Different between Item on sale and not on sale-->
+                        <div class="priceEarlierContainer">
+                            <span class="priceEarlierText">Førpris</span>
+                            <span class="priceEarlier">@Html.DisplayFor(modelItem => Model[listIndex].price) kr</span>
+                        </div>
+                        <div class="priceNowContainer">
+                        <span class="priceNowText">Nå</span>
+                            @{int nowPrice = Model[listIndex].price - Model[listIndex].rabatt;}
+                        <span class="priceNow">@nowPrice kr!</span>
+                    </div>
+                    }
+                    else{
+                        <div class="priceNowContainer">
+                        <span class="priceNowText">Kun</span>
+                            @{int nowPrice = Model[listIndex].price - Model[listIndex].rabatt;}
+                        <span class="priceNow">@nowPrice kr!</span>
+                    </div>
+                    }                       
+                </div>
+            </a>
+                listIndex++;
+        }
+    </div>
+    }
+}
